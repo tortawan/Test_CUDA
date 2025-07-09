@@ -1,0 +1,20 @@
+# Core dependencies for the DQN Lunar Lander project
+
+# PyTorch for neural networks and tensor operations
+torch==2.7.0
+
+# Gymnasium for the reinforcement learning environment (LunarLander-v2)
+# The [box2d] extra is required for the LunarLander environment.
+gymnasium[box2d]>=0.26.0,<0.30.0
+
+# NumPy for numerical operations
+numpy==2.1.2
+
+# Pandas for data manipulation and CSV output
+pandas==2.2.3
+
+# Matplotlib for plotting results
+matplotlib==3.10.3
+
+# Optional: if you want to ensure the same certifi version for HTTPS requests (though usually handled by requests/urllib3)
+# certifi==2024.7.4 # Example, use your specific version if needed, e.g. from your freeze: certifi @ file:///... (use actual version)
