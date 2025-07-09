@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import torch
 import multiprocessing as mp
+import json # Added for pretty-printing the config
 
 from .agent import DQNAgentIndependent
 from .plotting import plot_all_results
@@ -82,12 +83,23 @@ def run_single_experiment(experiment_config: dict, result_queue: mp.Queue):
                     eval_rewards.append(episode_reward)
                 
                 avg_eval_score = np.mean(eval_rewards)
-                result_queue.put({
+                
+                # --- MODIFICATION START ---
+                # Add hyperparameters to the results dictionary before queueing.
+                result_data = {
                     'experiment_id': exp_id, 
                     'episode': e, 
                     'avg_eval_score': avg_eval_score,
-                    'target_score': TARGET_SCORE_AVG
-                })
+                    'target_score': TARGET_SCORE_AVG,
+                    'learning_rate': agent.config['learning_rate'],
+                    'batch_size': agent.config['batch_size'],
+                    'gamma': agent.config['gamma'],
+                    'first_hid': agent.config['first_hid'],
+                    'second_hid': agent.config['second_hid'],
+                    'epsilon_decay': agent.config['epsilon_decay']
+                }
+                result_queue.put(result_data)
+                # --- MODIFICATION END ---
                 
                 if e % 50 == 0 or e == EPISODES_PER_EXPERIMENT:
                      logger.info(f"Exp {exp_id} | Ep {e} | Avg Eval Score: {avg_eval_score:.2f} | Epsilon: {agent.epsilon:.3f}")
@@ -124,6 +136,17 @@ class ExperimentOrchestrator:
     def run(self):
         """Main method to execute the entire experiment workflow."""
         configs = self._prepare_configs()
+        
+        # --- MODIFICATION START ---
+        # Added a sanity check to print the configuration of the first experiment.
+        if configs:
+            logger.info(f"--- Hyperparameter Sanity Check (showing config for {configs[0]['id']}) ---")
+            # Create a printable version of the config, excluding the agent object if present
+            printable_config = {k: v for k, v in configs[0].items()}
+            logger.info("\n" + json.dumps(printable_config, indent=4))
+            logger.info("--------------------------------------------------------------------")
+        # --- MODIFICATION END ---
+
         logger.info(f"Prepared {len(configs)} identical experiments to run in parallel batches of {NUM_WORKERS}.")
 
         manager = mp.Manager()

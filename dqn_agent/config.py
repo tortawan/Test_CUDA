@@ -44,8 +44,8 @@ logger = logging.getLogger(__name__)
 # By defining configs this way, you could easily add more to test in the future.
 HYPERPARAMETER_CONFIGS: Dict[str, Dict[str, Any]] = {
     'config_1': {
-        'first_hid': 128,
-        'second_hid': 128,
+        'first_hid': 200,
+        'second_hid': 100,
         'learning_rate': 0.0005
     }
     # Future example:
