@@ -58,7 +58,7 @@ HYPERPARAMETER_CONFIGS: Dict[str, Dict[str, Any]] = {
 
 # Settings common to all experiments
 BASE_CONFIG: Dict[str, Any] = {
-    'batch_size': 256,
+    'batch_size': 128,
     'gamma': 0.99,
     'step_to_update': 2,
     'epsilon_decay': 0.995,
