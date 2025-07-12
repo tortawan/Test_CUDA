@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 HYPERPARAMETER_CONFIGS: Dict[str, Dict[str, Any]] = {
     'config_1': {
         'first_hid': 200,
-        'second_hid': 100,
+        'second_hid': 200,
         'learning_rate': 0.0005
     }
     # Future example:
@@ -58,7 +58,7 @@ HYPERPARAMETER_CONFIGS: Dict[str, Dict[str, Any]] = {
 
 # Settings common to all experiments
 BASE_CONFIG: Dict[str, Any] = {
-    'batch_size': 128,
+    'batch_size': 256,
     'gamma': 0.99,
     'step_to_update': 2,
     'epsilon_decay': 0.995,
