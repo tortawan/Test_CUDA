@@ -8,7 +8,7 @@ from typing import Dict, Any
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
 # --- Experiment Configuration ---
-TOTAL_EXPERIMENTS: int = 15           # The total number of identical experiments to run.
+TOTAL_EXPERIMENTS: int = 1           # The total number of identical experiments to run.
 EPISODES_PER_EXPERIMENT: int = 500     # Total number of episodes for each independent experiment
 TARGET_SCORE_AVG: float = 250          # Target average score for solving the environment
 MAX_STEPS_PER_EPISODE: int = 1000      # Max steps per episode (for training and evaluation)
